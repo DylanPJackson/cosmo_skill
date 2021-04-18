@@ -14,8 +14,14 @@ from ask_sdk_core.handler_input import HandlerInput
 
 from ask_sdk_model import Response
 
+from flask import Flask
+from flask_ask_sdk.skill_adapter import SkillAdapter
+
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
+
+# Instantiate flask app
+app = Flask(__name__)
 
 
 class LaunchRequestHandler(AbstractRequestHandler):
@@ -180,4 +186,10 @@ sb.add_request_handler(IntentReflectorHandler()) # make sure IntentReflectorHand
 
 sb.add_exception_handler(CatchAllExceptionHandler())
 
-skill = sb.create()
+skill_adapter = SkillAdapter(skill = sb.create(), 
+	skill_id = 'mzn1.ask.skill.d5ce3dbd-f734-43c6-bb5a-cdb7463e79a6',
+	app = app)
+
+@app.route("/")
+def invoke_skill():
+	return skill_adapter.dispatch_request()
