@@ -193,3 +193,6 @@ skill_adapter = SkillAdapter(skill = sb.create(),
 @app.route("/")
 def invoke_skill():
 	return skill_adapter.dispatch_request()
+
+if __name__ == "__main__":
+	app.run()
