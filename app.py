@@ -197,7 +197,9 @@ skill_adapter = SkillAdapter(skill = sb.create(),
 
 @app.route("/", methods = ['GET', 'POST'])
 def invoke_skill():
-    return '{
+    return "Why won't this work" 
+
+"""'{
                 "body" : {
                     "version" : "1.0",
                     "response" : {
@@ -218,6 +220,7 @@ def invoke_skill():
                     "userAgent" : "ask-python/1.11.0 Python/3.7.10"
                 }
             }' 
+"""
 
 
 if __name__ == "__main__":
