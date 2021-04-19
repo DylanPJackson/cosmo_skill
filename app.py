@@ -26,13 +26,13 @@ class LaunchRequestHandler(AbstractRequestHandler):
     """Handler for Skill Launch."""
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
-		logger.info("In Launch can_handle request")
+        logger.info("In Launch can_handle request")
 
         return ask_utils.is_request_type("LaunchRequest")(handler_input)
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
-		logger.info("In Launch handle request")
+        logger.info("In Launch handle request")
         speak_output = "Welcome, I wonder if this works?"
 
         return (
@@ -47,12 +47,12 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
     """Handler for Hello World Intent."""
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
-		logger.info("In hello world canhandle request")
+        logger.info("In hello world canhandle request")
         return ask_utils.is_intent_name("HelloWorldIntent")(handler_input)
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
-		logger.info("In hello world handle request")
+        logger.info("In hello world handle request")
         speak_output = "Hello World!"
 
         return (
@@ -192,12 +192,12 @@ sb.add_exception_handler(CatchAllExceptionHandler())
 app = Flask(__name__)
 
 skill_adapter = SkillAdapter(skill = sb.create(), 
-	skill_id = 'mzn1.ask.skill.d5ce3dbd-f734-43c6-bb5a-cdb7463e79a6',
-	app = app)
+    skill_id = 'mzn1.ask.skill.d5ce3dbd-f734-43c6-bb5a-cdb7463e79a6',
+    app = app)
 
 @app.route("/")
 def invoke_skill():
-	return skill_adapter.dispatch_request()
+    return skill_adapter.dispatch_request()
 
 if __name__ == "__main__":
-	app.run("0.0.0.0", port = 8080)
+    app.run("0.0.0.0", port = 8080)
