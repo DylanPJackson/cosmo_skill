@@ -195,16 +195,9 @@ skill_adapter = SkillAdapter(skill = sb.create(),
     skill_id = 'mzn1.ask.skill.d5ce3dbd-f734-43c6-bb5a-cdb7463e79a6',
     app = app)
 
-# Maybe it needs to be initiated?
-skill_adapter.init_app(app)
-
-"""
 @app.route("/", methods = ['GET', 'POST'])
 def invoke_skill():
     return skill_adapter.dispatch_request()
-"""
-
-skill_adapter.register(app = app, route = "/")
 
 if __name__ == "__main__":
     app.run("0.0.0.0", port = 8080, debug=True)
