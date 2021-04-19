@@ -197,7 +197,7 @@ skill_adapter = SkillAdapter(skill = sb.create(),
 
 @app.route("/", methods = ['GET', 'POST'])
 def invoke_skill():
-    return skill_adapter.dispatch_request()
+    return "Hello World!" 
 
 if __name__ == "__main__":
     app.run("0.0.0.0", port = 8080, debug=True)
