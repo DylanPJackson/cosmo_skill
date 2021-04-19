@@ -190,7 +190,7 @@ skill_adapter = SkillAdapter(skill = sb.create(),
 	skill_id = 'mzn1.ask.skill.d5ce3dbd-f734-43c6-bb5a-cdb7463e79a6',
 	app = app)
 
-@app.route("/")
+@app.route("/", methods = ['GET', 'POST'])
 def invoke_skill():
 	return skill_adapter.dispatch_request()
 
