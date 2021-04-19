@@ -211,7 +211,7 @@ def invoke_skill():
                                 "ssml" : "<speak>This is the reprompt message</speak>"
                             }
                         },
-                        "shouldEndSession" : false,
+                        "shouldEndSession" : False,
                         "type" : "_DEFAULT_RESPONSE"
                     },
                     "sessionAttributes" : {},
