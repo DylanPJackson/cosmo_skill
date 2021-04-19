@@ -20,19 +20,19 @@ from flask_ask_sdk.skill_adapter import SkillAdapter
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
-# Instantiate flask app
-app = Flask(__name__)
 
 
 class LaunchRequestHandler(AbstractRequestHandler):
     """Handler for Skill Launch."""
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
+		logger.info("In Launch can_handle request")
 
         return ask_utils.is_request_type("LaunchRequest")(handler_input)
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
+		logger.info("In Launch handle request")
         speak_output = "Welcome, I wonder if this works?"
 
         return (
@@ -47,10 +47,12 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
     """Handler for Hello World Intent."""
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
+		logger.info("In hello world canhandle request")
         return ask_utils.is_intent_name("HelloWorldIntent")(handler_input)
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
+		logger.info("In hello world handle request")
         speak_output = "Hello World!"
 
         return (
@@ -186,11 +188,14 @@ sb.add_request_handler(IntentReflectorHandler()) # make sure IntentReflectorHand
 
 sb.add_exception_handler(CatchAllExceptionHandler())
 
+# Instantiate flask app
+app = Flask(__name__)
+
 skill_adapter = SkillAdapter(skill = sb.create(), 
 	skill_id = 'mzn1.ask.skill.d5ce3dbd-f734-43c6-bb5a-cdb7463e79a6',
 	app = app)
 
-@app.route("/", methods = ['GET', 'POST'])
+@app.route("/")
 def invoke_skill():
 	return skill_adapter.dispatch_request()
 
