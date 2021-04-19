@@ -197,7 +197,28 @@ skill_adapter = SkillAdapter(skill = sb.create(),
 
 @app.route("/", methods = ['GET', 'POST'])
 def invoke_skill():
-    return "Hello World!" 
+    return '{
+                "body" : {
+                    "version" : "1.0",
+                    "response" : {
+                        "outputSpeech" : {
+                            "type" : "SSML",
+                            "ssml" : "<speak>Welcome, maybe this works bruh</speak>"
+                        },
+                        "reprompt" : {
+                            "outputSpeech" : {
+                                "type" : "SSML",
+                                "ssml" : "<speak>This is the reprompt message</speak>"
+                            }
+                        },
+                        "shouldEndSession" : false,
+                        "type" : "_DEFAULT_RESPONSE"
+                    },
+                    "sessionAttributes" : {},
+                    "userAgent" : "ask-python/1.11.0 Python/3.7.10"
+                }
+            }' 
+
 
 if __name__ == "__main__":
     app.run("0.0.0.0", port = 8080, debug=True)
