@@ -97,25 +97,25 @@ Cosmo wants to ensure that you work towards your Goals every day, that you
 have time for your Interests, and that you don't forget about your Reminders.
 Consider a scenario where the user has the following goals and the given free
 time :
-![prioritization\_1](/home/dylan/Documents/repos/cosmo_skill/imgs/prioritization_1.png)
+![prioritization\_1](https://github.com/DylanPJackson/cosmo_skill/blob/master/imgs/prioritization_1.png)
 Cosmo wants to ensure that you complete your Reminders, so it slots them into
 your free time first. Cosmo has a custom prioritization function for Reminders
 which weights each Reminder by its expiration date and creation time. The 
 sooner the Reminder will expire, and the longer you've had it around, the more
 important it will be.
-![prioritization-2](/home/dylan/Documents/repos/cosmo_skill/imgs/prioritization_2.png)
+![prioritization-2](https://github.com/DylanPJackson/cosmo_skill/blob/master/imgs/prioritization_2.png)
 From there, Cosmo slots in your Goals. All goals are included by default, which
 makes the time you spend on each a bit interesting. A balance is struck here so
 that you spend at least some minimum amount of time on each goal, but not so 
 long that you'd become unproductive. This amount is based off of how much time 
 you have left over after including your Reminders.
-![prioritization\_3](/home/dylan/Documents/repos/cosmo_skill/imgs/prioritization_3.png)
+![prioritization\_3](https://github.com/DylanPJackson/cosmo_skill/blob/master/imgs/prioritization_3.png)
 Finally, with whatever time is left over, the Interests are included. These are
 prioritized by how long they've existed for and how long it's been since you
 interacted with it. So if an interest was created a month ago but just
 interacted with yesterday, it would have a lower priority than an interest that
 was created last week and you haven't interacted with it yet.
-![prioritization\_4](/home/dylan/Documents/repos/cosmo_skill/imgs/prioritization_4.png)
+![prioritization\_4](https://github.com/DylanPJackson/cosmo_skill/blob/master/imgs/prioritization_4.png)
 For more in depth explanation of how the Goals, Interests, and Reminders are 
 prioritized, check out the relevant code. 
 
