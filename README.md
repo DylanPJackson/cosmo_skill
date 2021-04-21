@@ -90,7 +90,7 @@ from the [Google Calendar API](https://developers.google.com/calendar/v3/referen
 to pull the amount of free time they have in a given day. In the following
 hypothetical day, cosmo would identify that the user has free time between 09:00
 and 10:00, as well as 18:00 and 22:00, providing Cosmo with 5 hours to work with.  
-![hypothetical day](/home/dylan/Documents/repos/cosmo_skill/imgs/hypothetical_day.png)  
+![hypothetical day](https://github.com/DylanPJackson/cosmo_skill/blob/master/imgs/hypothetical_day.png)  
 
 #### Prioritization 
 Cosmo wants to ensure that you work towards your Goals every day, that you
