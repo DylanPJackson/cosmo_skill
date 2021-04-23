@@ -195,31 +195,9 @@ skill_adapter = SkillAdapter(skill = sb.create(),
     skill_id = 'mzn1.ask.skill.d5ce3dbd-f734-43c6-bb5a-cdb7463e79a6',
     app = app)
 
-@app.route("/", methods = ['GET', 'POST'])
+@app.route("/", methods = ['POST'])
 def invoke_skill():
     return skill_adapter.dispatch_request() 
-    """{ 
-                "body" : {
-                    "version" : "1.0",
-                    "response" : {
-                        "outputSpeech" : {
-                            "type" : "SSML",
-                            "ssml" : "<speak>Welcome, maybe this works bruh</speak>"
-                        },
-                        "reprompt" : {
-                            "outputSpeech" : {
-                                "type" : "SSML",
-                                "ssml" : "<speak>This is the reprompt message</speak>"
-                            }
-                        },
-                        "shouldEndSession" : False,
-                        "type" : "_DEFAULT_RESPONSE"
-                    },
-                    "sessionAttributes" : {},
-                    "userAgent" : "ask-python/1.11.0 Python/3.7.10"
-                }
-            } 
-    """
 
 
 if __name__ == "__main__":
