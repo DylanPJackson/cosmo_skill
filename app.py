@@ -41,7 +41,7 @@ class LaunchRequestHandler(AbstractRequestHandler):
         # Imiplementing testing of requests API
         url = "http://numbersapi.com/4"
         http_response = requests.get(url)
-        if response.status_code == 200:
+        if http_response.status_code == 200:
             the_fact = http_response.text
         else:
             the_fact = "I had some trouble getting the fact, sorry."
