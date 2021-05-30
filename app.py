@@ -17,6 +17,8 @@ from ask_sdk_model import Response
 from flask import Flask
 from flask_ask_sdk.skill_adapter import SkillAdapter
 
+import requests
+
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
@@ -35,7 +37,16 @@ class LaunchRequestHandler(AbstractRequestHandler):
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
         logger.info("In Launch handle request")
-        speak_output = "Welcome, I wonder if this works?"
+        
+        # Imiplementing testing of requests API
+        url = "http://numbersapi.com/4"
+        http_response = requests.get(url)
+        if response.status_code == 200:
+            the_fact = http_response.text
+        else:
+            the_fact = "I had some trouble getting the fact, sorry."
+
+        speak_output = "Welcome, " + the_fact 
 
         return (
             handler_input.response_builder
