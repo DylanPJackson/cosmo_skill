@@ -1,20 +1,20 @@
 """
-	filename
-		prioritization_function_test.py
+filename
+    prioritize.py
 
-	description
-		Currently just testing grounds to implement the prioritization function
-		and the accompanying knapsack algorithm.
+description
+    Prioritize functionality for reminders
 
-	author
-		Dylan P. Jackson (original contributor)
+author
+    Dylan P. Jackson (original contributor)
 """
+
 import numpy as np
 
 class Reminder:
 	"""
-		Basic class to encapsulate the data for a Reminder as it is stored 
-		in the universe database
+    Basic class to encapsulate the data for a Reminder as it is stored 
+    in the universe database
 	"""
 	def __init__(self, r_id, description, expiration, complete_time, creation_date):
 		self.r_id = r_id
