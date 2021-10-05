@@ -66,7 +66,7 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
         logger.info("In hello world handle request")
-        speak_output = "Anti hello World!"
+        speak_output = "Get outta town!"
 
         return (
             handler_input.response_builder
