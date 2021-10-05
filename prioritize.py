@@ -30,17 +30,17 @@ class Reminder:
 	
 def prioritize(reminders):
 	"""
-		Generates value for each reminder based off of their expiration and
-		creation dates
+    Generates value for each reminder based off of their expiration and
+    creation dates
 
-		Parameters
-		----------
-		reminders : list<Reminder>
-		
-		Returns
-		-------
-		dict<int (r_id) : int (priority)>
-			Dictionary mapping reminder_id to their priority
+    Parameters
+    ----------
+    reminders : list<Reminder>
+    
+    Returns
+    -------
+    dict<int (r_id) : int (priority)>
+        Dictionary mapping reminder_id to their priority
 	"""
 
 	# Dictionary mapping reminder_id's to their priorities
