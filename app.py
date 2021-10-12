@@ -20,6 +20,8 @@ from flask_ask_sdk.skill_adapter import SkillAdapter
 import requests
 import psycopg2
 
+from db_config import config
+
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
@@ -67,7 +69,27 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
         logger.info("In hello world handle request")
-        speak_output = "Get outta town!"
+
+        speak_output = "Well, I tried"
+        
+        # Do something to db
+        conn = None
+        sql = "SELECT * FROM goal_log"
+        try:
+            params = config()
+            conn = psycopg2.connect(**params)
+            cur = conn.cursor()
+            cur.execute(sql)
+            response = cur.fetchone()
+            from_db = response[1]
+            speak_output = f"I found your database, with {from_db}"
+            cur.close()
+        except (Exception, psycopg2.DatabaseError) as err:
+            logger.info(f"Got an error chief: {err}")
+        finally:
+            if conn is not None:
+                logger.info("Closing db connection")
+                conn.close()
 
         return (
             handler_input.response_builder
