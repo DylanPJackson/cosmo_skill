@@ -18,6 +18,7 @@ from flask import Flask
 from flask_ask_sdk.skill_adapter import SkillAdapter
 
 import requests
+import psycopg2
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
