@@ -81,7 +81,7 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
         speak_output = f"I found your database, with {from_db}"
         cur.close()
         conn.close()"""
-        speak_output = "Yup, still works, no worries"
+        speak_output = "Back on main branch app"
 
         return (
             handler_input.response_builder
