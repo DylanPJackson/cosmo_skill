@@ -81,7 +81,7 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
         speak_output = f"I found your database, with {from_db}"
         cur.close()
         conn.close()"""
-        speak_output = "Hello, this is Cosmo from the db connection branch."
+        speak_output = "Hello, this is Cosmo from the db connection branch"
 
         return (
             handler_input.response_builder
