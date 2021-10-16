@@ -71,7 +71,7 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
         logger.info("In hello world handle request")
 
         # Do something to db
-        sql = "SELECT * FROM goal_log"
+        """sql = "SELECT * FROM goal_log"
         params = config()
         conn = psycopg2.connect(**params)
         cur = conn.cursor()
@@ -80,7 +80,8 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
         from_db = response[1]
         speak_output = f"I found your database, with {from_db}"
         cur.close()
-        conn.close()
+        conn.close()"""
+        speak_output = "Yup, still works, no worries"
 
         return (
             handler_input.response_builder
