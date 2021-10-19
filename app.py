@@ -71,14 +71,15 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
         logger.info("In hello world handle request")
 
         # Do something to db
-        sql = "SELECT * FROM goal_log"
+        sql = "DELETE FROM goal_log WHERE g_id = 1"
         params = config()
         conn = psycopg2.connect(**params)
         cur = conn.cursor()
         cur.execute(sql)
-        response = cur.fetchone()
-        from_db = response[1]
-        speak_output = f"I found your database! I should now say script test. {from_db}"
+        #response = cur.fetchone()
+        #from_db = response[1]
+        conn.commit()
+        speak_output = f"I just deleted something from your database. Go check it out."
         cur.close()
         conn.close()
 
