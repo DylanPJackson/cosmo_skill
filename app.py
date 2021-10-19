@@ -19,7 +19,6 @@ from flask_ask_sdk.skill_adapter import SkillAdapter
 
 import requests
 import psycopg2
-import os
 
 from db_config import config
 
@@ -72,18 +71,16 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
         logger.info("In hello world handle request")
 
         # Do something to db
-        """sql = "SELECT * FROM goal_log"
+        sql = "SELECT * FROM goal_log"
         params = config()
         conn = psycopg2.connect(**params)
         cur = conn.cursor()
         cur.execute(sql)
         response = cur.fetchone()
         from_db = response[1]
-        speak_output = f"I found your database, with {from_db}"
+        speak_output = f"I found your database! I should now say script test. {from_db}"
         cur.close()
-        conn.close()"""
-        test_var = str(os.environ["TEST_ENV_VAR"])
-        speak_output = f"Hello, here is your environment variable. {test_var}"
+        conn.close()
 
         return (
             handler_input.response_builder
