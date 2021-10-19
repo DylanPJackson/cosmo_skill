@@ -75,15 +75,16 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
         explanation = "Howdy gamer, well done!"
         time_spent = "10 minutes"
         date = "2021-10-19"
-        sql = f"INSERT INTO goal_log VALUES ({g_id}, '{explanation}', '{time_spent}', '{date}')"
+        #sql = f"INSERT INTO goal_log VALUES ({g_id}, '{explanation}', '{time_spent}', '{date}')"
+        sql = "SELECT * FROM goal_log"
         params = config()
         conn = psycopg2.connect(**params)
         cur = conn.cursor()
         cur.execute(sql)
-        #response = cur.fetchone()
-        #from_db = response[1]
-        conn.commit()
-        speak_output = f"I just deleted something from your database. Go check it out."
+        response = cur.fetchone()
+        from_db = response[1]
+        #conn.commit()
+        speak_output = f"Just pulled something from your database. Here's what it says. {from_db}"
         cur.close()
         conn.close()
 
