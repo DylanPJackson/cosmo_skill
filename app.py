@@ -71,7 +71,11 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
         logger.info("In hello world handle request")
 
         # Do something to db
-        sql = "DELETE FROM goal_log WHERE g_id = 1"
+        g_id = 4
+        explanation = "Howdy gamer, well done!"
+        time_spent = "10 minutes"
+        date = "2021-10-19"
+        sql = f"INSERT INTO goal_log VALUES ({g_id}, '{explanation}', '{time_spent}', '{date}')"
         params = config()
         conn = psycopg2.connect(**params)
         cur = conn.cursor()
