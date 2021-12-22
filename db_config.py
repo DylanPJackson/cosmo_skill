@@ -1,19 +1,18 @@
 # Ripped straight from https://www.postgresqltutorial.com/postgresql-python/connect/
+import os
 
-from configparser import ConfigParser
-
-def config(filename='database.ini', section='postgresql'):
-    # Create parser
-    parser = ConfigParser()
-    # Read config file
-    parser.read(filename)
-
+def config():
     db = {}
-    if parser.has_section(section):
-        params = parser.items(section)
-        for param in params:
-            db[param[0]] = param[1]
-    else:
-        raise Exception(f'Section {section} not found in {filename}')
-
-    return db
+    try:
+        host = os.environ["HOST"]
+        database = os.environ["DATABASE"]
+        user = os.environ["USER"]
+        password = os.environ["PASSWORD"]
+        db['host'] = host
+        db['database'] = database
+        db['user'] = user
+        db['password'] = password
+    except KeyError as err:
+        print(f"KeyError, {err}") 
+    finally:
+        return db
