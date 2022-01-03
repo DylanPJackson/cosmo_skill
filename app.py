@@ -71,10 +71,10 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
         logger.info("In hello world handle request")
 
         # Do something to db
-        g_id = 4
-        explanation = "Howdy gamer, well done!"
-        time_spent = "10 minutes"
-        date = "2021-10-19"
+        #g_id = 4
+        #explanation = "Howdy gamer, well done!"
+        #time_spent = "10 minutes"
+        #date = "2021-10-19"
         #sql = f"INSERT INTO goal_log VALUES ({g_id}, '{explanation}', '{time_spent}', '{date}')"
         sql = "SELECT * FROM goal_log"
         params = config()
@@ -84,7 +84,7 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
         response = cur.fetchone()
         from_db = response[1]
         #conn.commit()
-        speak_output = f"Just pulled something from your database. Here's what it says. {from_db}"
+        speak_output = f"Pulling from the freebusy branch. {from_db}"
         cur.close()
         conn.close()
 
