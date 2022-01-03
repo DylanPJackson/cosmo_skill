@@ -100,8 +100,8 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
                 handler_input.response_builder
                     .speak(speak_output)
                     # .ask("add a reprompt if you want to keep the session open for the user to respond")
-                    .with_link_account_card()
-                    .get_response()
+                    .set_card(ui.link_account_card.LinkAccountCard())
+                    .response
             )
         else:
             speak_output = "Your access token exists, congrats dude."
