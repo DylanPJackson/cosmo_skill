@@ -93,18 +93,24 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
 
         request = handler_input.request_envelope.to_dict()
         access_token = request['context']['system']['user']['access_token']
+        print(f"Access token : {access_token}")
         if access_token is None:
             speak_output = "Hey buddy, looks like your access token doesn't exist."
+            return (
+                handler_input.response_builder
+                    .speak(speak_output)
+                    # .ask("add a reprompt if you want to keep the session open for the user to respond")
+                    .with_link_account_card()
+                    .get_response()
+            )
         else:
             speak_output = "Your access token exists, congrats dude."
-        print(f"Access token : {access_token}")
-
-        return (
-            handler_input.response_builder
-                .speak(speak_output)
-                # .ask("add a reprompt if you want to keep the session open for the user to respond")
-                .response
-        )
+            return (
+                handler_input.response_builder
+                    .speak(speak_output)
+                    # .ask("add a reprompt if you want to keep the session open for the user to respond")
+                    .response
+            )
 
 
 class HelpIntentHandler(AbstractRequestHandler):
