@@ -91,7 +91,7 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
 
         print("Testing print... why doesn't the logger work as expected :(")
 
-        request = handler_input.request_envelope
+        request = handler_input.request_envelope.json()
         access_token = request['context']['system']['user']['access_token']
         if access_token is None:
             speak_output = "Hey buddy, looks like your access token doesn't exist."
