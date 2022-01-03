@@ -89,10 +89,15 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
         #cur.close()
         #conn.close()
 
-        speak_output = "Testing freebusy authentication for now"
-        request = handler_input.request_envelope
         print("Testing print... why doesn't the logger work as expected :(")
-        print(request)
+
+        request = handler_input.request_envelope
+        access_token = request['context']['system']['user']['access_token']
+        if access_token is None:
+            speak_output = "Hey buddy, looks like your access token doesn't exist."
+        else:
+            speak_output = "Your access token exists, congrats dude."
+        print(f"Access token : {access_token}")
 
         return (
             handler_input.response_builder
