@@ -71,22 +71,28 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
         logger.info("In hello world handle request")
 
         # Do something to db
+        ## God oh why didn't I just make all of these changes as independent handlers...
         #g_id = 4
         #explanation = "Howdy gamer, well done!"
         #time_spent = "10 minutes"
         #date = "2021-10-19"
         #sql = f"INSERT INTO goal_log VALUES ({g_id}, '{explanation}', '{time_spent}', '{date}')"
-        sql = "SELECT * FROM goal_log"
-        params = config()
-        conn = psycopg2.connect(**params)
-        cur = conn.cursor()
-        cur.execute(sql)
-        response = cur.fetchone()
-        from_db = response[1]
+        #sql = "SELECT * FROM goal_log"
+        #params = config()
+        #conn = psycopg2.connect(**params)
+        #cur = conn.cursor()
+        #cur.execute(sql)
+        #response = cur.fetchone()
+        #from_db = response[1]
         #conn.commit()
-        speak_output = f"Pulling from the freebusy branch. {from_db}"
-        cur.close()
-        conn.close()
+        #speak_output = f"Pulling from the freebusy branch. {from_db}"
+        #cur.close()
+        #conn.close()
+
+        speak_output = "Testing freebusy authentication for now"
+        request = handler_input.request_envelope
+        print("Testing print... why doesn't the logger work as expected :(")
+        print(request)
 
         return (
             handler_input.response_builder
