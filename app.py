@@ -110,8 +110,8 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
             speak_output = "Passing as Bearer access token now, with API KEY!"
             api_key = os.environ["GOOGLE_API_KEY"]
             request_url = f"https://www.googleapis.com/calendar/v3/freeBusy?key={api_key}"
-            timeMin = "2021-01-04T00:00:00"
-            timeMax = "2021-01-04T23:59:59"
+            timeMin = "2021-01-04T00:00:00Z"
+            timeMax = "2021-01-04T23:59:59Z"
             items = [{"id":"frprdjackson@gmail.com"}]
             data = {"timeMin" : timeMin,
                     "timeMax" : timeMax,
