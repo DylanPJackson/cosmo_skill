@@ -109,7 +109,7 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
             access_token = str(access_token)
             speak_output = "Passing as Bearer access token now, with API KEY!"
             api_key = os.environ["GOOGLE_API_KEY"]
-            request_url = f"https://www.googleapis.com/calendar/v3/freeBusy?key={api_key}"
+            request_url = f"https://www.googleapis.com/calendar/v3/freeBusy"
             timeMin = "2022-01-04T00:00:00Z"
             timeMax = "2022-01-04T23:59:59Z"
             items = [{"id":"frprdjackson@gmail.com"}]
@@ -120,16 +120,15 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
             headers = {"Authorization" : bearer,
                        "Accept" : "application/json",
                        "Content-Type" : "application/json"}
-            r = requests.post(request_url, headers=headers, data = data) 
-            status_code = r.status_code
-            print(f"Request status code : {status_code}")
-            text = r.text
-            print(f"Request text : {text}")
+            params = {"key" : api_key}
+            r = requests.post(request_url, headers=headers, data = data, params = params) 
+            print(f"Request text : {r.text}")
 
             # Building our own request to better understand what's sent
             attempted_r = requests.Request(method='POST',url=request_url,
                                            headers = headers,
-                                           data = data)
+                                           data = data,
+                                           params = params)
             prepared_r = attempted_r.prepare()
             print("\nPrinting attempted request fields")
             print(f"Method : {prepared_r.method}")
