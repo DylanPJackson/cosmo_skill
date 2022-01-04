@@ -113,8 +113,8 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
             data = {"timeMin" : timeMin,
                     "timeMax" : timeMax,
                     "items" : items}
-            headers = {"Authorization" : access_token}
-            r = requests.post(request_url, data = data, headers = headers)
+            auth = ('Bearer', access_token)
+            r = requests.post(request_url, data = data, auth = auth)
             status_code = r.status_code
             print(f"Request status code : {status_code}")
             text = r.text
