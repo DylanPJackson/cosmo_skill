@@ -113,7 +113,7 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
             timeMin = "2022-01-04T00:00:00Z"
             timeMax = "2022-01-04T23:59:59Z"
             items = [{"id":"frprdjackson@gmail.com"}]
-            data = f"timeMin={timeMin}&timeMax={timeMax}&items=[{items[0]}]"
+            data = '{"timeMin":"2022-01-04T00:00:00Z","timeMax":"2022-01-04T23:59:59Z","items":[{"id":"frprdjackson@gmail.com"}]}'
             bearer = f"Bearer {access_token}"
             headers = {"Authorization" : bearer,
                        "Accept" : "application/json",
