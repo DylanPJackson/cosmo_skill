@@ -111,13 +111,15 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
             api_key = os.environ["GOOGLE_API_KEY"]
             request_url = f"https://www.googleapis.com/calendar/v3/freeBusy?key={api_key}"
             timeMin = "2021-01-04T00:00:00Z"
-            timeMax = "2021-01-04T23:59:59Z"
+            timeMax = "2021-01-04T23:59:00Z"
             items = [{"id":"frprdjackson@gmail.com"}]
             data = {"timeMin" : timeMin,
                     "timeMax" : timeMax,
                     "items" : items}
             bearer = f"Bearer {access_token}"
-            headers = {"Authorization" : bearer}
+            headers = {"Authorization" : bearer,
+                       "Accept" : "application/json",
+                       "Content-Type" : "application/json"}
             r = requests.post(request_url, data = data, headers=headers) 
             status_code = r.status_code
             print(f"Request status code : {status_code}")
