@@ -105,7 +105,20 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
                     .response
             )
         else:
-            speak_output = "Your access token exists, congrats dude."
+            speak_output = "For now, check the logs for calendar info."
+            request_url = "https://www.googleapis.com/calendar/v3/freeBusy"
+            timeMin = "2021-01-04T00:00:00"
+            timeMax = "2021-01-04T23:59:59"
+            items = [{"id":"frprdjackson@gmail.com"}]
+            data = {"timeMin" : timeMin,
+                    "timeMax" : timeMax,
+                    "items" : items}
+            headers = {"Authorization" : access_token}
+            r = requests.post(request_url, data = data, headers = headers)
+            status_code = r.status_code
+            print(f"Request status code : {status_code}")
+            text = r.text
+            print(f"Request text : {text}")
             return (
                 handler_input.response_builder
                     .speak(speak_output)
