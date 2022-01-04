@@ -132,11 +132,11 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
                                            data = data)
             prepared_r = attempted_r.prepare()
             print("\nPrinting attempted request fields")
-            print(f"Method : {prapred_r.method}")
+            print(f"Method : {prepared_r.method}")
             print(f"URL : {prepared_r.url}")
             print(f"Headers : {prepared_r.headers}")
             print(f"Body : {prepared_r.body}")
-            print(f"Path URL : {preapred_r.path_url}")
+            print(f"Path URL : {prepared_r.path_url}")
             
             print("\nAttempting to send the prepared request to server")
             s = requests.Session()
