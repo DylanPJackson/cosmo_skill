@@ -125,6 +125,23 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
             print(f"Request status code : {status_code}")
             text = r.text
             print(f"Request text : {text}")
+
+            # Building our own request to better understand what's sent
+            attempted_r = requests.request(method='POST',url=request_url,
+                                           headers = headers,
+                                           data = data)
+            prepared_r = attempted_r.prepare()
+            print("\nPrinting attempted request fields")
+            print(f"Method : {prapred_r.method}")
+            print(f"URL : {prepared_r.url}")
+            print(f"Headers : {prepared_r.headers}")
+            print(f"Body : {prepared_r.body}")
+            print(f"Path URL : {preapred_r.path_url}")
+            
+            print("\nAttempting to send the prepared request to server")
+            s = requests.Session()
+            prepared_resp = s.send(prepared_r)
+            print(f"Prepared request text : {prepared_resp.txt}")
             return (
                 handler_input.response_builder
                     .speak(speak_output)
