@@ -105,7 +105,7 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
                     .response
             )
         else:
-            speak_output = "For now, check the logs for calendar info."
+            speak_output = "Passing authentication token through header as Bearer."
             request_url = "https://www.googleapis.com/calendar/v3/freeBusy"
             timeMin = "2021-01-04T00:00:00"
             timeMax = "2021-01-04T23:59:59"
@@ -113,8 +113,8 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
             data = {"timeMin" : timeMin,
                     "timeMax" : timeMax,
                     "items" : items}
-            auth = ('Bearer', access_token)
-            r = requests.post(request_url, data = data, auth = auth)
+            headers = {"Bearer" : access_token}
+            r = requests.post(request_url, data = data, headers=headers) 
             status_code = r.status_code
             print(f"Request status code : {status_code}")
             text = r.text
