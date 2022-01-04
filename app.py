@@ -5,6 +5,7 @@
 # session persistence, api calls, and more.
 # This sample is built using the handler classes approach in skill builder.
 import logging
+import os
 import ask_sdk_core.utils as ask_utils
 
 from ask_sdk_core.skill_builder import SkillBuilder
@@ -105,15 +106,18 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
                     .response
             )
         else:
-            speak_output = "Passing authentication token through header as Bearer."
-            request_url = "https://www.googleapis.com/calendar/v3/freeBusy"
+            access_token = str(access_token)
+            speak_output = "Passing as Bearer access token now, with API KEY!"
+            api_key = os.environ["GOOGLE_API_KEY"]
+            request_url = f"https://www.googleapis.com/calendar/v3/freeBusy?key={api_key}"
             timeMin = "2021-01-04T00:00:00"
             timeMax = "2021-01-04T23:59:59"
             items = [{"id":"frprdjackson@gmail.com"}]
             data = {"timeMin" : timeMin,
                     "timeMax" : timeMax,
                     "items" : items}
-            headers = {"Bearer" : access_token}
+            bearer = f"Bearer {access_token}"
+            headers = {"Authorization" : bearer}
             r = requests.post(request_url, data = data, headers=headers) 
             status_code = r.status_code
             print(f"Request status code : {status_code}")
