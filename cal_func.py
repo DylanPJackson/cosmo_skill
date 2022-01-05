@@ -66,19 +66,21 @@ def get_time_available(freebusy_info:Dict, cal_id:str):
     hours : Union[int, float] 
         Hours available
     """
+    print(f'Here is freebusy info : {freebusy_info}')
+    print(f"Here is type of freebusy info : {type(freebusy_info)}")
     try:
         print("Trying to index right in")
         busy_info = freebusy_info["calendars"][cal_id]["busy"]
         print(f"Busy info : \n {busy_info}")
-    except Error:
+    except Exception as exp:
         print("Indexing in does not work, try something else")
-        print(f"Error : {Error}")
+        print(f"Exception: {exp}")
 
     try:
         print("Trying to convert to dictionary first")
         freebusy_dct = freebusy_info.to_dict()
         busy_info = freebusy_info["calendars"][cal_id]["busy"]
         print(f"Busy info : \n {busy_info}")
-    except Error:
+    except Exception as exp:
         print("Converting to dictionary first doesn't work, try something else")
-        print(f"Error : {Error}")
+        print(f"Exception: {exp}")
