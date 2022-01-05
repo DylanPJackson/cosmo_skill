@@ -26,6 +26,7 @@ import datetime
 from datetime import datetime, date
 
 from db_config import config
+from cal_func import get_freebusy
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -100,7 +101,8 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
         access_token = request['context']['system']['user']['access_token']
         print(f"Access token : {access_token}")
         if access_token is None:
-            speak_output = "Hey buddy, looks like your access token doesn't exist."
+            speak_output = "Hey buddy, looks like your access token doesn't exist."\
+                           "Better give me one if you want this to work."
             return (
                 handler_input.response_builder
                     .speak(speak_output)
@@ -110,42 +112,19 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
             )
         else:
             access_token = str(access_token)
-            speak_output = "Passing as Bearer access token now, with API KEY!"
-            api_key = os.environ["GOOGLE_API_KEY"]
-            request_url = f"https://www.googleapis.com/calendar/v3/freeBusy"
+            speak_output = "Getting freebusy info, now with separated functionality!"
             # This only works because we run on NY servers
             # Will need to update this to reflect datetime of invoking Alexa
+            ## Now imagine we get these times from the user... eventually
             today = datetime.today()
             timeMin = today.strftime("%Y-%m-%dT00:00:00Z")
             timeMax = today.strftime("%Y-%m-%dT23:59:59Z") 
-            items = [{"id":"frprdjackson@gmail.com"}]
-            data = '{"timeMin":"' + f'{timeMin}","timeMax":"{timeMax}",'\
-                   '"timeZone":"EST","items":[{"id":"frprdjackson@gmail.com"}]}'
-            bearer = f"Bearer {access_token}"
-            headers = {"Authorization" : bearer,
-                       "Accept" : "application/json",
-                       "Content-Type" : "application/json"}
-            params = {"key" : api_key}
-            r = requests.post(request_url, headers=headers, data = data, params = params) 
-            print(f"Request text : {r.text}")
-
-            # Building our own request to better understand what's sent
-            attempted_r = requests.Request(method='POST',url=request_url,
-                                           headers = headers,
-                                           data = data,
-                                           params = params)
-            prepared_r = attempted_r.prepare()
-            print("\nPrinting attempted request fields")
-            print(f"Method : {prepared_r.method}")
-            print(f"URL : {prepared_r.url}")
-            print(f"Headers : {prepared_r.headers}")
-            print(f"Body : {prepared_r.body}")
-            print(f"Path URL : {prepared_r.path_url}")
-            
-            print("\nAttempting to send the prepared request to server")
-            s = requests.Session()
-            prepared_resp = s.send(prepared_r)
-            print(f"Prepared request text : {prepared_resp.text}")
+            timeZone = "EST"
+            ## And imagine we get the calendar id from the user as well
+            cal_id = "frprdjackson@gmail.com"
+            freebusy_info = get_freebusy(access_token, timeMin, timeMax,
+                                         timeZone, cal_id) 
+            print(f"Here is your freebusy info : {freebusy_info}") 
             return (
                 handler_input.response_builder
                     .speak(speak_output)
