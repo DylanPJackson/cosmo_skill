@@ -31,7 +31,8 @@ def get_freebusy(access_token:str, timeMin:str, timeMax:str,
     Returns
     =======
     freebusy_info : Dict 
-        Freebusy info
+        Freebusy info formatted per
+        https://developers.google.com/calendar/api/v3/reference/freebusy/query
     """
     request_url = "https://www.googleapis.com/calendar/v3/freeBusy"
     bearer = f"Bearer {access_token}"
@@ -47,3 +48,37 @@ def get_freebusy(access_token:str, timeMin:str, timeMax:str,
     freebusy_info = req.text
     
     return freebusy_info 
+
+def get_time_available(freebusy_info:Dict, cal_id:str):
+    """
+    Gets hours available from freebusy info with given calendar id.
+
+    Parameters
+    ==========
+    freebusy_info : Dict
+        Dictionary of freebusy information, per Google Calendar API response
+        format : https://developers.google.com/calendar/api/v3/reference/freebusy/query
+    cal_id : str
+        Calendar ID of interest 
+
+    Returns
+    =======
+    hours : Union[int, float] 
+        Hours available
+    """
+    try:
+        print("Trying to index right in")
+        busy_info = freebusy_info["calendars"][cal_id]["busy"]
+        print(f"Busy info : \n {busy_info}")
+    except Error:
+        print("Indexing in does not work, try something else")
+        print(f"Error : {Error}")
+
+    try:
+        print("Trying to convert to dictionary first")
+        freebusy_dct = freebusy_info.to_dict()
+        busy_info = freebusy_info["calendars"][cal_id]["busy"]
+        print(f"Busy info : \n {busy_info}")
+    except Error:
+        print("Converting to dictionary first doesn't work, try something else")
+        print(f"Error : {Error}")

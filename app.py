@@ -95,14 +95,12 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
         #cur.close()
         #conn.close()
 
-        print("Testing print... why doesn't the logger work as expected :(")
-
         request = handler_input.request_envelope.to_dict()
         access_token = request['context']['system']['user']['access_token']
         print(f"Access token : {access_token}")
         if access_token is None:
             speak_output = "Hey buddy, looks like your access token doesn't exist."\
-                           "Better give me one if you want this to work."
+                           " Better give me one if you want this to work."
             return (
                 handler_input.response_builder
                     .speak(speak_output)
@@ -124,6 +122,7 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
             cal_id = "frprdjackson@gmail.com"
             freebusy_info = get_freebusy(access_token, timeMin, timeMax,
                                          timeZone, cal_id) 
+            get_time_available(freebusy_info, cal_id)
             print(f"Here is your freebusy info : {freebusy_info}") 
             return (
                 handler_input.response_builder
