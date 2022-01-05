@@ -22,6 +22,9 @@ from flask_ask_sdk.skill_adapter import SkillAdapter
 import requests
 import psycopg2
 
+import datetime
+from datetime import datetime, date
+
 from db_config import config
 
 logger = logging.getLogger(__name__)
@@ -110,10 +113,13 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
             speak_output = "Passing as Bearer access token now, with API KEY!"
             api_key = os.environ["GOOGLE_API_KEY"]
             request_url = f"https://www.googleapis.com/calendar/v3/freeBusy"
-            timeMin = "2022-01-04T00:00:00Z"
-            timeMax = "2022-01-04T23:59:59Z"
+            # This only works because we run on NY servers
+            # Will need to update this to reflect datetime of invoking Alexa
+            today = datetime.today()
+            timeMin = today.strftime("%Y-%m-%dT00:00:00Z")
+            timeMax = today.strftime("%Y-%m-%dT23:59:59Z") 
             items = [{"id":"frprdjackson@gmail.com"}]
-            data = '{"timeMin":"2022-01-05T00:00:00Z","timeMax":"2022-01-05T23:59:59Z",'\
+            data = f'{"timeMin":"{timeMin}","timeMax":"{timeMax}",'\
                    '"timeZone":"EST","items":[{"id":"frprdjackson@gmail.com"}]}'
             bearer = f"Bearer {access_token}"
             headers = {"Authorization" : bearer,
