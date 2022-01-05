@@ -26,7 +26,7 @@ import datetime
 from datetime import datetime, date
 
 from db_config import config
-from cal_func import get_freebusy
+from cal_func import get_freebusy, get_time_available
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
