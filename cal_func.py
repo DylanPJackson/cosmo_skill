@@ -64,10 +64,10 @@ def get_time_available(freebusy_info:Dict, cal_id:str):
     Returns
     =======
     time_available : Union[int, float] 
-        Time available in hours 
+        Time available in hours. This is unformatted so that the calling code
+        can do whatever it wants with all information possible.
     """
     busy_times = freebusy_info["calendars"][cal_id]["busy"]
-    print(f"Busy Times : {busy_times}")
     dt_format = "%Y-%m-%dT%H:%M:%S%z"
     # Imagine if you had the whole day.
     time_available = 24 
@@ -83,5 +83,4 @@ def get_time_available(freebusy_info:Dict, cal_id:str):
             time_available -= busy 
         else:
             print(f"Somehow got a negative busy time : {busy}")
-    print(f"Time available : {time_available}")
     return time_available

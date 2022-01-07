@@ -97,7 +97,6 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
 
         request = handler_input.request_envelope.to_dict()
         access_token = request['context']['system']['user']['access_token']
-        print(f"Access token : {access_token}")
         if access_token is None:
             speak_output = "Hey buddy, looks like your access token doesn't exist."\
                            " Better give me one if you want this to work."
@@ -117,14 +116,11 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
             today = dt.now(tz)
             timeMin = today.strftime("%Y-%m-%dT00:00:00-05:00")
             timeMax = today.strftime("%Y-%m-%dT23:59:59-05:00") 
-            print(f"Assumed timeMin : {timeMin}")
-            print(f"Assumed timeMax : {timeMax}")
             timeZone = "EST"
             ## And imagine we get the calendar id from the user as well
             cal_id = "frprdjackson@gmail.com"
             freebusy_info = get_freebusy(access_token, timeMin, timeMax,
                                          timeZone, cal_id) 
-            print(f"Freebusy info from get_freebusy : {freebusy_info}")
             time_available = get_time_available(freebusy_info, cal_id)
             # Format time_available
             time_available_str = "{:.1f}".format(time_available)
