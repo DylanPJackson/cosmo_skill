@@ -79,7 +79,7 @@ def get_time_available(freebusy_info:Dict, cal_id:str):
         delta = end_dt - start_dt
         busy = delta.total_seconds() / 3600
         # You'd hope this is positive
-        if delta > 0: 
+        if busy > 0: 
             time_available -= busy 
         else:
             print(f"Somehow got a negative busy time : {busy}")

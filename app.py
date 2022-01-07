@@ -23,7 +23,7 @@ import requests
 import psycopg2
 
 import datetime
-from datetime import datetime, date
+from datetime import datetime as dt, timedelta, date
 
 from db_config import config
 from cal_func import get_freebusy, get_time_available
@@ -110,10 +110,11 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
             )
         else:
             access_token = str(access_token)
-            # This only works because we run on NY servers
             # Will need to update this to reflect datetime of invoking Alexa
             ## Now imagine we get these times from the user... eventually
-            today = datetime.today()
+            offset = datetime.timedelta(hours=-5)
+            tz = datetime.timezone(offset, name="EST")
+            today = dt.now(tz)
             timeMin = today.strftime("%Y-%m-%dT00:00:00Z")
             timeMax = today.strftime("%Y-%m-%dT23:59:59Z") 
             print(f"Assumed timeMin : {timeMin}")
