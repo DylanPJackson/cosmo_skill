@@ -115,8 +115,8 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
             offset = datetime.timedelta(hours=-5)
             tz = datetime.timezone(offset, name="EST")
             today = dt.now(tz)
-            timeMin = today.strftime("%Y-%m-%dT00:00:00-5:00")
-            timeMax = today.strftime("%Y-%m-%dT23:59:59-5:00") 
+            timeMin = today.strftime("%Y-%m-%dT00:00:00-05:00")
+            timeMax = today.strftime("%Y-%m-%dT23:59:59-05:00") 
             print(f"Assumed timeMin : {timeMin}")
             print(f"Assumed timeMax : {timeMax}")
             timeZone = "EST"
