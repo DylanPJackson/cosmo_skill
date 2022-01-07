@@ -110,7 +110,6 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
             )
         else:
             access_token = str(access_token)
-            speak_output = "Getting freebusy info, now with separated functionality!"
             # This only works because we run on NY servers
             # Will need to update this to reflect datetime of invoking Alexa
             ## Now imagine we get these times from the user... eventually
@@ -122,8 +121,8 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
             cal_id = "frprdjackson@gmail.com"
             freebusy_info = get_freebusy(access_token, timeMin, timeMax,
                                          timeZone, cal_id) 
-            get_time_available(freebusy_info, cal_id)
-            print(f"Here is your freebusy info : {freebusy_info}") 
+            time_available = get_time_available(freebusy_info, cal_id)
+            speak_output = f"You have {time_available} hours available today"
             return (
                 handler_input.response_builder
                     .speak(speak_output)
