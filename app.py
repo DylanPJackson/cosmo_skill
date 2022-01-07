@@ -126,7 +126,10 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
                                          timeZone, cal_id) 
             print(f"Freebusy info from get_freebusy : {freebusy_info}")
             time_available = get_time_available(freebusy_info, cal_id)
-            speak_output = f"You have {time_available} hours available today"
+            # Format time_available
+            time_available_str = "{:.1f}".format(time_available)
+            time_available_form = float(time_available_str)
+            speak_output = f"You have {time_available_form} hours available today"
             return (
                 handler_input.response_builder
                     .speak(speak_output)
