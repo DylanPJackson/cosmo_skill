@@ -116,11 +116,14 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
             today = datetime.today()
             timeMin = today.strftime("%Y-%m-%dT00:00:00Z")
             timeMax = today.strftime("%Y-%m-%dT23:59:59Z") 
+            print(f"Assumed timeMin : {timeMin}")
+            print(f"Assumed timeMax : {timeMax}")
             timeZone = "EST"
             ## And imagine we get the calendar id from the user as well
             cal_id = "frprdjackson@gmail.com"
             freebusy_info = get_freebusy(access_token, timeMin, timeMax,
                                          timeZone, cal_id) 
+            print(f"Freebusy info from get_freebusy : {freebusy_info}")
             time_available = get_time_available(freebusy_info, cal_id)
             speak_output = f"You have {time_available} hours available today"
             return (

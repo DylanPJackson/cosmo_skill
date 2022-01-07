@@ -63,9 +63,25 @@ def get_time_available(freebusy_info:Dict, cal_id:str):
 
     Returns
     =======
-    hours : Union[int, float] 
-        Hours available
+    time_available : Union[int, float] 
+        Time available in hours 
     """
-    print("Just a test of freebusy info")
     busy_times = freebusy_info["calendars"][cal_id]["busy"]
-    print(busy_times)
+    print(f"Busy Times : {busy_times}")
+    dt_format = "%Y-%m-%dT%H:%M:%S%z"
+    # Imagine if you had the whole day.
+    time_available = 24 
+    for time_pair in busy_times:
+        start = time_pair['start']
+        end = time_pair['end']
+        start_dt = datetime.strptime(start, dt_format)
+        end_dt = datetime.strptime(end, dt_format)
+        delta = end_dt - start_dt
+        busy = delta.total_seconds() / 3600
+        # You'd hope this is positive
+        if delta > 0: 
+            time_available -= busy 
+        else:
+            print(f"Somehow got a negative busy time : {busy}")
+    print(f"Time available : {time_available}")
+    return time_available
