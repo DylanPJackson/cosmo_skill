@@ -5,12 +5,12 @@ import os
 from datetime import datetime
 from typing import Dict
 
-def get_freebusy(access_token:str, timeMin:str, timeMax:str,
-                 timeZone:str, cal_id:str):
+def get_freebusy(access_token:str, time_min:str, time_max:str,
+                 time_zone:str, cal_id:str):
     """
     Make freebusy query to Google Calendar API to return freebusy info. 
 
-    timeMin and timeMax may or may not in the future get passed in another
+    time_min and time_max may or may not in the future get passed in another
     format. Likely will be some time offset, but for now using this since
     dynamic user time choice has not been implemented yet. It will soon though
     :)
@@ -19,11 +19,11 @@ def get_freebusy(access_token:str, timeMin:str, timeMax:str,
     ==========
     access_token : str
         Access token required to authenticate with the Google Authorization server
-    timeMin : str 
+    time_min : str 
         The beginning time bound to consider
-    timeMax : str 
+    time_max : str 
         The ending time bound to consider
-    timeZone : str
+    time_zone : str
         Timezone for request 
     cal_id : str
         ID of the calendar to query 
@@ -39,8 +39,8 @@ def get_freebusy(access_token:str, timeMin:str, timeMax:str,
     headers = {"Authorization" : bearer,
                "Accept" : "application/json",
                "Content-Type" : "application/json"}
-    data = '{"timeMin":"' + f'{timeMin}","timeMax":"{timeMax}",'\
-           '"timeZone":"' + f'{timeZone}",'\
+    data = '{"timeMin":"' + f'{time_min}","timeMax":"{time_max}",'\
+           '"timeZone":"' + f'{time_zone}",'\
            '"items":[{"id":"' + f'{cal_id}"' + '}]}'
     api_key = os.environ["GOOGLE_API_KEY"] 
     params = {"key" : api_key} 

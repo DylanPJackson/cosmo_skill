@@ -114,13 +114,13 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
             offset = datetime.timedelta(hours=-5)
             tz = datetime.timezone(offset, name="EST")
             today = dt.now(tz)
-            timeMin = today.strftime("%Y-%m-%dT00:00:00-05:00")
-            timeMax = today.strftime("%Y-%m-%dT23:59:59-05:00") 
-            timeZone = "EST"
+            time_min = today.strftime("%Y-%m-%dT00:00:00-05:00")
+            time_max = today.strftime("%Y-%m-%dT23:59:59-05:00") 
+            time_zone = "EST"
             ## And imagine we get the calendar id from the user as well
             cal_id = "frprdjackson@gmail.com"
-            freebusy_info = get_freebusy(access_token, timeMin, timeMax,
-                                         timeZone, cal_id) 
+            freebusy_info = get_freebusy(access_token, time_min, time_max,
+                                         time_zone, cal_id) 
             time_available = get_time_available(freebusy_info, cal_id)
             # Format time_available
             time_available_str = "{:.1f}".format(time_available)
