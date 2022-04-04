@@ -96,7 +96,9 @@ class HelloWorldIntentHandler(AbstractRequestHandler):
         #conn.close()
 
         request = handler_input.request_envelope.to_dict()
+        print(f"request : {request}")
         access_token = request['context']['system']['user']['access_token']
+        print(f"access_token : {access_token}")
         if access_token is None:
             speak_output = "Hey buddy, looks like your access token doesn't exist."\
                            " Better give me one if you want this to work."
