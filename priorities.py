@@ -27,13 +27,22 @@ class Interest:
         self.termination_date = termination_date
 
 class Reminder:
-    def __init__(self, r_id:int, description:str, expiration_date:datetime,
+    """
+    Basic class to encapsulate data for a Remidner as stored in universe.
+    """
+    def __init__(self, r_id:int, description:str, expiration:datetime,
                  expected_time:timedelta, creation_date:datetime, status:Status,
-                 completion_date:datetime):
+                 complete_time:datetime):
         self.r_id = r_id
         self.description = description
-        self.expiration_date = expiration_date
+        self.expiration = expiration
         self.expected_time = expected_time
         self.creation_date = creation_date
         self.status = status
-        self.completion_date = completion_date
+        self.complete_time = complete_time
+
+    def __repr__(self):
+        return ("Reminder(r_id : {}, description : {}, expiration : {}, expected_time : {}, creation_date : {}, ".format(
+            self.r_id, self.description, self.expiration,
+            self.expected_time, self.creation_date) + "status : {}, complete_time : {})".format(
+            self.status, self.complete_time))

@@ -1,34 +1,24 @@
+from typing import Union, Dict, Tuple, List
+from priorities import Goal, Interest, Reminder
+from priorities import Reminder, Status
+import numpy as np
+
 """
 filename
-    reminder_logic.py
+    logic_prioritize.py
 
 description
-    Prioritize functionality for reminders
+    Prioritize functionality for all priorities.
+
+    Prioritization logic for each priority, Goals, Interests, and Reminders,
+    can be found here, as well as generalized prioritization logic to handle
+    all the priorities.
 
 author
     Dylan P. Jackson (original contributor)
 """
 
-import numpy as np
-
-class Reminder:
-	"""
-    Basic class to encapsulate the data for a Reminder as it is stored 
-    in the universe database
-	"""
-	def __init__(self, r_id, description, expiration, complete_time, creation_date):
-		self.r_id = r_id
-		self.description = description
-		self.expiration = expiration
-		self.complete_time = complete_time
-		self.creation_date = creation_date
-
-	def __repr__(self):
-		return "Reminder(r_id : {}, description : {}, expiration : {}, complete_time : {}, creation_date : {})".format(
-				self.r_id, self.description, self.expiration,
-				self.complete_time, self.creation_date)
-	
-def prioritize(reminders):
+def r_prioritize(reminders):
 	"""
     Generates value for each reminder based off of their expiration and
     creation dates
@@ -94,7 +84,7 @@ def knapsack_indv(n, c, w, W):
 			vector of values associated with Reminders (From prioritize())
 			Sorted by w
 		w : list<int>
-			vector of complete_time (weights) associated with Reminders	
+			vector of expected_time (weights) associated with Reminders	
 			Assumed that this is sorted in ascending order
 		W : int
 			The total available time (total weight) at the time 
@@ -103,7 +93,7 @@ def knapsack_indv(n, c, w, W):
 		-------
 		list<int>
 			List of indices essentially, which are mapped to r_id's at index
-			specified by sorted r_id's by complete_time
+			specified by sorted r_id's by expected_time 
 	"""
 	# Initialize solution matrix
 	S = [[0 for i in range(W + 1)] for i in range(n + 1)]
@@ -145,21 +135,19 @@ def knapsack_indv(n, c, w, W):
 
 	return inds 
 		
-
-def main():
+def reminder_main():
 	# Lets create some reminders
-	reminder_1 = Reminder(1, "dog", 3, 3, 8)
-	reminder_2 = Reminder(2, "cat", 6, 4, 2)
-	reminder_3 = Reminder(3, "fish", 4, 2, 10)
-	reminder_4 = Reminder(4, "towel", 8, 6, 7)
-	reminder_5 = Reminder(5, "york", 2, 1, 5)
+	reminder_1 = Reminder(1, "dog", 3, 3, 8, Status.ACTIVE.value, 0)
+	reminder_2 = Reminder(2, "cat", 6, 4, 2, Status.ACTIVE.value, 0)
+	reminder_3 = Reminder(3, "fish", 4, 2, 10, Status.ACTIVE.value, 0)
+	reminder_4 = Reminder(4, "towel", 8, 6, 7, Status.ACTIVE.value, 0)
+	reminder_5 = Reminder(5, "york", 2, 1, 5, Status.ACTIVE.value, 0)
 	reminders = [reminder_1, reminder_2, reminder_3, reminder_4, reminder_5]
 	for reminder in reminders:
-		#print(reminder)
-		pass
+		print(reminder)
 
 	# And generate their priorities 
-	priorities = prioritize(reminders)
+	priorities = r_prioritize(reminders)
 	print("priorities : " + str(priorities))
 
 	# And reverse_priorities dict to map value back to r_id
@@ -175,7 +163,7 @@ def main():
 	c_w = []
 	comp_ids = {} 
 	for r_id in r_ids:
-		c_w += [[priorities[r_id], reminders[r_id - 1].complete_time, r_id]]	
+		c_w += [[priorities[r_id], reminders[r_id - 1].expected_time, r_id]]	
 		
 	c_w.sort(key = lambda x:x[1])
 	n_c_w = np.array(c_w)
@@ -196,5 +184,31 @@ def main():
 		inc_ids.append(rev_prior[c[ind - 1]])
 	print("Included Reminder ID's : " + str(inc_ids))
 
+def prioritize(time_available:Union[int,float], goals:List[Goal],
+               interests:List[Interest], reminders:List[Reminder]):
+    """
+    Determine how much time to spend on which priorities.
 
-main()
+    Parameters
+    ==========
+    time_available : Union[int, float]
+        How much time you have to work with
+    goals : List[Goal]
+        List of Goals
+    interests : List[Interest]
+        List of Interests
+    reminders : List[Reminder]
+        List of Reminders
+
+    Returns
+    =======
+    itemized_priorities : Dict[str, List[Tuple[str, Union[int, float]]]]
+    """
+    pass
+
+def main():
+    reminder_main()
+
+if __name__ == "__main__":
+    main()
+
